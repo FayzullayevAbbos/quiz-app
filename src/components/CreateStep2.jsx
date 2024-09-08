@@ -68,7 +68,7 @@ function CreateStep2({ setQuestion, subject, setSubject }) {
 
   return (
     <div className='h-full w-full flex items-center justify-center'>
-      <div className='max-w-[600px] flex flex-col items-center mb-20 py-3 w-full border'>
+      <div className='max-w-[600px] flex flex-col items-center mb-20 py-3 w-full rounded-xl border'>
         {formLoading ? (
           <Spin size='large' />
         ) : (

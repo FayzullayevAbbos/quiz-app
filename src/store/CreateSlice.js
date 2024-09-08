@@ -1,29 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isGone: false,
-  fanNomi:'',
+  fanNomi: "",
   formLoading: false,
-}
+  IsSelected: false,
+  selectedFan: "",
+};
 
 export const counterSlice = createSlice({
-  name: 'createSlice',
+  name: "createSlice",
   initialState,
   reducers: {
-    setIsGone: (state , action) => {
-      state.value = action.payload
+    setIsGone: (state, action) => {
+      state.value = action.payload;
     },
-    setFanNomi:(state , action)=> {
-      state.fanNomi = action.payload
+    setFanNomi: (state, action) => {
+      state.fanNomi = action.payload;
     },
-    setFormLoading:(state , action) => {
-      state.formLoading = action.payload
-    }
-   
+    setFormLoading: (state, action) => {
+      state.formLoading = action.payload;
+    },
+    setIsSelected: (state, action) => {
+      state.IsSelected = action.payload;
+    },
+    setSelectedFan: (state, action) => {
+      state.selectedFan = action.payload;
+    },
   },
-})
+});
 
+export const {
+  setIsGone,
+  setFanNomi,
+  setFormLoading,
+  setIsSelected,
+  setSelectedFan,
+} = counterSlice.actions;
 
-export const { setIsGone , setFanNomi , setFormLoading} = counterSlice.actions
-
-export default counterSlice.reducer
+export default counterSlice.reducer;

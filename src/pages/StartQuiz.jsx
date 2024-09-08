@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import StartStep1 from "../components/StartStep1";
 import StartStep2 from "../components/StartStep2";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ function StartQuiz() {
 
   return (
     <div className='w-full h-full'>
+      <Navbar/>
       {selectedFan ? (
         <StartStep2
           formLoading={formLoading}

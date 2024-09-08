@@ -1,7 +1,6 @@
-// firebase.js fayli
-
-import { initializeApp } from "firebase/app"; // Firebase default emas, named export
-import { getFirestore } from "firebase/firestore"; // Firestore moduli misol tariqasida
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDxrMOFg0YI8C73W63vgIJjO_WeOJSc1gw",
@@ -14,7 +13,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Export qilayotgan modullar (masalan, Firestore)
 const db = getFirestore(app);
-export { app, db };
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();  // Initialize Google Provider
+
+// Export Firebase modules
+export { app, db, auth, googleProvider };  // Make sure googleProvider is exported

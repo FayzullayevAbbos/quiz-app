@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import CreateStep1 from "../components/CreateStep1";
 import CreateStep2 from "../components/CreateStep2";
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 
 function CreateQuiz() {
   const isGone = useSelector((state) => state.isGone);
@@ -11,6 +12,7 @@ function CreateQuiz() {
 
   return (
     <div className='h-full w-full flex items-center justify-center'>
+      <Navbar/>
       {question ? (
         <CreateStep2
           setSubject={setSubject}

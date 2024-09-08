@@ -1,6 +1,6 @@
 import { db } from "../firebase";
 import { setDoc, doc } from "firebase/firestore";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFormLoading, setIsGone } from "../store/CreateSlice";
@@ -47,6 +47,7 @@ function CreateStep1({setQuestion, setSubject}) {
       });
 
       // Formani tozalash
+      message.info("Qo'shildi")
       setQuestion(true)
       dispatch(setFormLoading(true))
       form.resetFields();

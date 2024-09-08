@@ -1,33 +1,60 @@
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import StartQuiz from "./pages/StartQuiz";
+import CreateQuiz from "./pages/CreateQuiz";
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './App.css'
-import Home from './pages/Home'
-import StartQuiz from './pages/StartQuiz'
-import CreateQuiz from './pages/CreateQuiz'
+import Navbar from "./components/Navbar";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
-    
   const router = createBrowserRouter([
     {
-      element:<Home/>,
-      path:'/'
+      element: (
+        <ProtectedRoute> {/* Wrapping Home in ProtectedRoute */}
+          <Home />
+        </ProtectedRoute>
+      ),
+      path: "/",
     },
     {
-      element:<StartQuiz/>,
-      path:"/start"
+      element: (
+        <ProtectedRoute> {/* Wrapping StartQuiz in ProtectedRoute */}
+          <StartQuiz />
+        </ProtectedRoute>
+      ),
+      path: "/start",
     },
     {
-      element:<CreateQuiz/>,
-      path:'/create'
-    }
-
-  ])
+      element: (
+        <ProtectedRoute> {/* Wrapping CreateQuiz in ProtectedRoute */}
+          <CreateQuiz />
+        </ProtectedRoute>
+      ),
+      path: "/create",
+    },
+    {
+      element: <Login />,
+      path: "/login",
+    },
+    {
+      element: <Register />,
+      path: "/register",
+    },
+  ]);
 
   return (
-    <>
-    <RouterProvider router={router}/>
-    </>
-  )
+    <AuthProvider>
+      
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

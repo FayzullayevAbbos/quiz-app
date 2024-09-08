@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import RoleSelection from "./components/RoleSelection";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,6 +48,10 @@ function App() {
       element: <Register />,
       path: "/register",
     },
+    {
+      element:<RoleSelection/>,
+      path:'/role-selection'
+    }
   ]);
 
   return (

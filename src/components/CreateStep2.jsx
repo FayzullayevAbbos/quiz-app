@@ -124,6 +124,7 @@ function CreateStep2({ setQuestion, subject, setSubject }) {
                 <Select
                   placeholder='Birini tanlang'
                   options={options}
+                  
                 />
               </Form.Item>
               <Form.Item className='flex gap-3'>

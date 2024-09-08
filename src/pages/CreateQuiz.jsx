@@ -7,7 +7,7 @@ function CreateQuiz() {
   const isGone = useSelector((state) => state.isGone);
   const [question, setQuestion] = useState(false);
   const [subject, setSubject] = useState("");
-  console.log(isGone);
+ 
 
   return (
     <div className='h-full w-full flex items-center justify-center'>

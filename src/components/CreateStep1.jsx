@@ -1,10 +1,11 @@
 import { db } from "../firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { Button, Form, Input, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setIsGone } from "../store/CreateSlice";
-function CreateStep1({setQuestion}) {
+import { setFormLoading, setIsGone } from "../store/CreateSlice";
+function CreateStep1({setQuestion, setSubject}) {
+  const dispatch = useDispatch()
   const [data, setData] = useState({
     fanNomi: "",
     variantlarSoni: "",
@@ -13,7 +14,11 @@ function CreateStep1({setQuestion}) {
   const { fanNomi, variantlarSoni, loading } = data;
   const options = [{ value: 2 }, { value: 3 }, { value: 4 }];
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+ 
+  useEffect(()=> {
+    dispatch(setFormLoading(false))
+  })
+
   const handleSelect = (value) => {
     setData({ ...data, variantlarSoni: value });
   };
@@ -22,6 +27,9 @@ function CreateStep1({setQuestion}) {
   };
 
   async function onSubmit(value) {
+    setSubject(value.Input)
+   
+    
     setData({ ...data, loading: true });
     try {
       // Agar hujjat ID avtomatik yaratilishini istasangiz
@@ -40,6 +48,7 @@ function CreateStep1({setQuestion}) {
 
       // Formani tozalash
       setQuestion(true)
+      dispatch(setFormLoading(true))
       form.resetFields();
 
     } catch (error) {

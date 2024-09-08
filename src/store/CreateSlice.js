@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isGone: false,
+  fanNomi:'',
+  formLoading: false,
 }
 
 export const counterSlice = createSlice({
@@ -11,11 +13,17 @@ export const counterSlice = createSlice({
     setIsGone: (state , action) => {
       state.value = action.payload
     },
+    setFanNomi:(state , action)=> {
+      state.fanNomi = action.payload
+    },
+    setFormLoading:(state , action) => {
+      state.formLoading = action.payload
+    }
    
   },
 })
 
 
-export const { setIsGone } = counterSlice.actions
+export const { setIsGone , setFanNomi , setFormLoading} = counterSlice.actions
 
 export default counterSlice.reducer

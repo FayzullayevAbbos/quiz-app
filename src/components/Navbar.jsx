@@ -16,7 +16,7 @@ useEffect(() => {
     
     handleLogout();
   }
-  currentUser?.displayName ? navigate('/'):''
+
   
 }, [location.pathname , currentUser?.displayName]);
   const handleLogout = () => {

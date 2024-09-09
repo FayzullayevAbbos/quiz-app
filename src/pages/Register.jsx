@@ -36,7 +36,7 @@ const RegisterPage = () => {
       });
 
       message.success("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         message.error(

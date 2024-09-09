@@ -9,16 +9,7 @@ const Navbar = () => {
   const location = useLocation()
   const navigate = useNavigate()
  
-useEffect(() => {
-  
-  if (location.pathname === '/login' ) {
-     
-    
-    handleLogout();
-  }
 
-  
-}, [location.pathname , currentUser?.displayName]);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {

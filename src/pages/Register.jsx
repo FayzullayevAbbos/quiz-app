@@ -11,14 +11,13 @@ import Navbar from "../components/Navbar";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     const { name, email, password, role } = values;
     setLoading(true);
 
     try {
-      // Foydalanuvchini ro'yxatdan o'tkazish
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -26,12 +25,10 @@ const RegisterPage = () => {
       );
       const user = userCredential.user;
 
-      // Foydalanuvchi profilini yangilash
       await updateProfile(user, {
         displayName: name,
       });
 
-      // Foydalanuvchi ma'lumotlarini Firestore-ga saqlash
       await setDoc(doc(db, "users", user.uid), {
         name,
         email,
@@ -39,9 +36,8 @@ const RegisterPage = () => {
       });
 
       message.success("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-      navigate('/')
+      navigate("/");
     } catch (error) {
-      // Xatolikni aniqlash va foydalanuvchiga xabar berish
       if (error.code === "auth/email-already-in-use") {
         message.error(
           "Bu email manzil allaqachon ro'yxatdan o'tgan!",
@@ -57,72 +53,75 @@ const RegisterPage = () => {
 
   return (
     <>
-    <Navbar/>
-    <div className='flex items-center justify-center h-screen'>
-      <div className='max-w-md w-full p-6 border rounded-lg shadow-lg'>
-        <h2 className='text-2xl font-bold mb-4'>Ro'yxatdan o'tish</h2>
-        <Form name='register' layout='vertical' onFinish={onFinish}>
-          <Form.Item
-            name='name'
-            label='Ism'
-            rules={[
-              {
-                required: true,
-                message: "Iltimos, ismingizni kiriting!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name='email'
-            label='Email'
-            rules={[
-              {
-                required: true,
-                type: "email",
-                message: "Iltimos, to'g'ri email manzilini kiriting!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name='password'
-            label='Parol'
-            rules={[
-              {
-                required: true,
-                message: "Iltimos, parolingizni kiriting!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            name='role'
-            label='Rol'
-            rules={[
-              { required: true, message: "Iltimos, rol tanlang!" },
-            ]}
-          >
-            <Radio.Group>
-              <Radio value='student'>Student</Radio>
-              <Radio value='teacher'>Teacher</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type='primary'
-              htmlType='submit'
-              loading={loading}
+      <Navbar />
+      <div className='flex items-center justify-center h-screen'>
+        <div className='max-w-md w-full p-6 border rounded-lg shadow-lg'>
+          <h2 className='text-2xl font-bold mb-4'>
+            Ro'yxatdan o'tish
+          </h2>
+          <Form name='register' layout='vertical' onFinish={onFinish}>
+            <Form.Item
+              name='name'
+              label='Ism'
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos, ismingizni kiriting!",
+                },
+              ]}
             >
-              Ro'yxatdan o'tish
-            </Button>
-          </Form.Item>
-        </Form>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name='email'
+              label='Email'
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message:
+                    "Iltimos, to'g'ri email manzilini kiriting!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name='password'
+              label='Parol'
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos, parolingizni kiriting!",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item
+              name='role'
+              label='Rol'
+              rules={[
+                { required: true, message: "Iltimos, rol tanlang!" },
+              ]}
+            >
+              <Radio.Group>
+                <Radio value='student'>Student</Radio>
+                <Radio value='teacher'>Teacher</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type='primary'
+                htmlType='submit'
+                loading={loading}
+              >
+                Ro'yxatdan o'tish
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-    </div>
     </>
   );
 };

@@ -1,13 +1,9 @@
 import { Button } from "antd";
-import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { setIsGone } from "../store/CreateSlice";
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 
 function Home() {
-  const dispatch = useDispatch();
-
   return (
     <>
       <Navbar />
@@ -30,7 +26,7 @@ function Home() {
                 className='text-[30px] px-5 py-8 font-bold'
                 type='primary'
               >
-                Create  quiz
+                Create quiz
               </Button>
             </Link>
             <Link to={"/teacher-dashboard"}>

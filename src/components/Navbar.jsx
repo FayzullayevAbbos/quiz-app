@@ -8,11 +8,11 @@ const Navbar = () => {
   const { currentUser } = useAuth();
   const location = useLocation()
   const navigate = useNavigate()
-// console.log(auth);
+ 
 useEffect(() => {
   
   if (location.pathname === '/login' || location.pathname === '/register') {
-    console.log(location.pathname);
+     
     
     handleLogout();
   }
@@ -20,10 +20,10 @@ useEffect(() => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
+       
         if(location.pathname === '/register'){
 
-          navigate("/register"); // Redirect to login page after logout
+          navigate("/register");  
         }else navigate('/login')
       })
       .catch((error) => {

@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFormLoading } from "../store/CreateSlice";
 
 function CreateStep2({ setQuestion, subject, setSubject }) {
-  const [form] = Form.useForm(); // AntD form instance
+  const [form] = Form.useForm(); 
   const formLoading = useSelector((state) => state.formLoading);
   const [loading,  setLoading] = useState(false)
   const dispatch = useDispatch()
-  const [variantSoni, setVariantSoni] = useState(0); // Variantlar soni
+  const [variantSoni, setVariantSoni] = useState(0);  
   const options = Array.from({ length: variantSoni }).map(
     (_, index) => ({
       label: `Variant ${index + 1}`,
-      value: index, // Variant nomlari (variant_0, variant_1 ...)
+      value: index,  
     }),
   );
 
@@ -25,14 +25,14 @@ function CreateStep2({ setQuestion, subject, setSubject }) {
   }, []);
   const getVariantSoni = async () => {
     try {
-      const docRef = doc(db, "fanlar", subject); // "algebra" hujjatiga ishora
-      const docSnap = await getDoc(docRef); // Hujjatni olish
+      const docRef = doc(db, "fanlar", subject); 
+      const docSnap = await getDoc(docRef);  
 
       if (docSnap.exists()) {
-        const data = docSnap.data(); // Hujjat ma'lumotlari
+        const data = docSnap.data(); 
         setVariantSoni(data.variantSoni);
         dispatch(setFormLoading(false))
-         // variantSoni ni chiqarish
+         
       } else {
         console.log("Bunday hujjat mavjud emas!");
       }
@@ -156,37 +156,3 @@ function CreateStep2({ setQuestion, subject, setSubject }) {
 }
 
 export default CreateStep2;
-// import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-// import { db } from "../firebase"; // Firebase firestore'ni import qilish
-
-// // Test yechilgan ma'lumotlarni saqlash funksiyasi
-// const saveSolvedTest = async (userId, testId, correctAnswers, totalQuestions) => {
-//   try {
-//     // Foydalanuvchi va test uchun yangi hujjat yaratiladi
-//     const solvedTestRef = doc(db, "solvedTests", `${userId}_${testId}`);
-    
-//     // Hujjat ichiga quyidagi ma'lumotlarni saqlaymiz
-//     await setDoc(solvedTestRef, {
-//       userId: userId,            // Foydalanuvchi ID
-//       testId: testId,            // Test ID
-//       correctAnswers: correctAnswers,  // To'g'ri javoblar soni
-//       totalQuestions: totalQuestions,  // Testdagi jami savollar soni
-//       solvedAt: serverTimestamp() // Hozirgi vaqtni saqlash
-//     });
-
-//     console.log("Test ma'lumotlari saqlandi!");
-//   } catch (error) {
-//     console.error("Xatolik ma'lumotlarni saqlashda:", error);
-//   }
-// };
-
-// // Misol uchun test yechilgan vaqtda:
-// const handleTestCompletion = async () => {
-//   const userId = currentUser.uid;       // Hozirgi foydalanuvchi ID'sini oling
-//   const testId = "some_test_id";        // Test ID (har bir test uchun unik kod)
-//   const correctAnswers = 8;             // To'g'ri javoblar soni (bu ma'lumotni testdan olasiz)
-//   const totalQuestions = 10;            // Jami savollar soni
-
-//   // Foydalanuvchi testni yechganligini Firebase'ga saqlash
-//   await saveSolvedTest(userId, testId, correctAnswers, totalQuestions);
-// };

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
-      console.log("Foydalanuvchi ma'lumotlari:", user);
+      
       
       if (user) {
         setCurrentUser(user);
@@ -24,9 +24,9 @@ export const AuthProvider = ({ children }) => {
           const docSnap = await getDoc(userDocRef);
           if (docSnap.exists()) {
             setUserRole(docSnap.data().role);
-            console.log("Ro'l:", docSnap.data().role);
+           
           } else {
-            setUserRole(null); // Ro'l hali tanlanmagan
+            setUserRole(null); 
           }
         } catch (error) {
           console.error("Xatolik yuz berdi:", error);
@@ -35,10 +35,9 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(null);
         setUserRole(null);
       }
-      setLoading(false); // Loading holatini oxirida false qilib qo'yish
+      setLoading(false); 
     });
 
-    // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
 
@@ -53,7 +52,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook for consuming AuthContext
 export const useAuth = () => {
   return useContext(AuthContext);
 };

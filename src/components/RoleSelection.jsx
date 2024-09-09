@@ -4,7 +4,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Button, Form, Select, Typography, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import 'antd/dist/reset.css'; // Ant Design CSS importi
+import 'antd/dist/reset.css';  
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -27,7 +27,7 @@ const RoleSelection = () => {
           message: 'Rol muvaffaqiyatli yangilandi!',
           description: 'Sizning rolingiz muvaffaqiyatli saqlandi.',
         });
-        navigate('/'); // Ro'l saqlangandan so'ng bosh sahifaga yo'naltirish
+        navigate('/');  
       } catch (error) {
         notification.error({
           message: 'Xatolik',

@@ -32,28 +32,28 @@ function CreateStep1({setQuestion, setSubject}) {
     
     setData({ ...data, loading: true });
     try {
-      // Agar hujjat ID avtomatik yaratilishini istasangiz
-      const docRef = doc(db, "fanlar", value.Input); // Hujjatga nom sifatida "Input" qiymatini beryapmiz
+   
+      const docRef = doc(db, "fanlar", value.Input);  
       await setDoc(docRef, {
         fanNomi: value.Input,
         variantSoni: value.Select,
       });
 
-      // Ma'lumotlarni tozalash
+     
       setData({
         fanNomi: "",
         variantlarSoni: "",
         loading: false,
       });
 
-      // Formani tozalash
+     
       message.info("Qo'shildi")
       setQuestion(true)
       dispatch(setFormLoading(true))
       form.resetFields();
 
     } catch (error) {
-      console.error("Xatolik ro'y berdi: ", error); // Xatolikni ko'rsatish
+      console.error("Xatolik ro'y berdi: ", error);  
       setData({ ...data, loading: false });
     }
   }

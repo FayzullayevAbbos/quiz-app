@@ -5,7 +5,7 @@ import {
   getDocs,
   setDoc,
   Timestamp,
-} from "firebase/firestore"; // Import additional methods
+} from "firebase/firestore"; 
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { Button, Form, message, Radio, Space, Spin } from "antd";
@@ -25,12 +25,12 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
     getVariantSoni();
     getQuestions();
   }, []);
-  console.log(selectedFan);
+ 
 
   useEffect(() => {
     if (next === questionsArray.length) {
       setFinish(true);
-      handleFinish(); // Call handleFinish when the test is complete
+      handleFinish();  
     } else {
       setFinish(false);
     }
@@ -92,12 +92,11 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
       }, 500);
     }
   };
-
-  // Function to handle saving results to Firebase
+ 
   const handleFinish = async () => {
     try {
       if (currentUser) {
-        // Ensure currentUser is available
+  
         const userDocRef = doc(db, "solvedTests", currentUser.uid);
         await setDoc(
           userDocRef,
@@ -108,7 +107,7 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
             correctAnswers: results.filter((r) => r.isCorrect).length,
             incorrectAnswers: results.filter((r) => !r.isCorrect)
               .length,
-            solvedAt: Timestamp.now(), // Save the current timestamp
+            solvedAt: Timestamp.now(),  
           },
           { merge: true },
         );

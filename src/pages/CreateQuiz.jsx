@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+
 import CreateStep1 from "../components/CreateStep1";
 import CreateStep2 from "../components/CreateStep2";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 
 function CreateQuiz() {
-  const isGone = useSelector((state) => state.isGone);
+
   const [question, setQuestion] = useState(false);
   const [subject, setSubject] = useState("");
  

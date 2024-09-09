@@ -22,7 +22,7 @@ function App() {
       element: (
         <ProtectedRoute>
           {" "}
-          {/* Wrapping Home in ProtectedRoute */}
+         
           <Home />
         </ProtectedRoute>
       ),
@@ -32,7 +32,7 @@ function App() {
       element: (
         <ProtectedRoute requiredRole='student'>
           {" "}
-          {/* Wrapping StartQuiz in ProtectedRoute */}
+          
           <StartQuiz />
         </ProtectedRoute>
       ),
@@ -42,7 +42,7 @@ function App() {
       element: (
         <ProtectedRoute requiredRole='teacher'>
           {" "}
-          {/* Wrapping CreateQuiz in ProtectedRoute */}
+          
           <CreateQuiz />
         </ProtectedRoute>
       ),

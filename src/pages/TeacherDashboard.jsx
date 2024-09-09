@@ -27,27 +27,27 @@ const TeacherDashboard = () => {
   };
 
   function formatTime(dateString) {
-    // Parse the date string
+
     const date = new Date(dateString);
 
-    // Extract hours and minutes
+
     let hours = date.getHours();
     const minutes = Math.floor((dateString.seconds % 3600) / 60);
 
-    // Determine AM/PM
+
     const amPm = hours >= 12 ? "PM" : "AM";
 
-    // Convert hours from 24-hour to 12-hour format
+
     hours = hours % 12 || 12;
 
-    // Format minutes to be two digits
+
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    // Return formatted time
+
     return `${hours}:${formattedMinutes} ${amPm}`;
   }
 
-  // Configure the table columns
+  
   const columns = [
     {
       title: "Foydalanuvchi",

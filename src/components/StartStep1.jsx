@@ -9,16 +9,16 @@ function StartStep1({handleCheck}) {
   const getAllFanlar = async () => {
     setLoading(true);
     try {
-      const fanlarCollectionRef = collection(db, "fanlar"); // "fanlar" kolleksiyasiga ishora
-      const querySnapshot = await getDocs(fanlarCollectionRef); // Kolleksiyadagi barcha hujjatlarni olish
+      const fanlarCollectionRef = collection(db, "fanlar");  
+      const querySnapshot = await getDocs(fanlarCollectionRef);  
 
       const fanlar = querySnapshot.docs.map((doc) => ({
-        id: doc.id, // Hujjatning ID'si (masalan: "algebra")
-        ...doc.data(), // Hujjatning ma'lumotlari (masalan: { fanNomi: "algebra", variantSoni: 4 })
+        id: doc.id,  
+        ...doc.data(), 
       }));
       setFanlar(fanlar);
       setLoading(false);
-      console.log(fanlar); // Barcha fanlar ro'yxatini ko'rsatish
+     
     } catch (error) {
       setLoading(false);
       console.error("Xatolik ro'y berdi:", error);

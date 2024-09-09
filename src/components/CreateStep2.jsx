@@ -156,3 +156,37 @@ function CreateStep2({ setQuestion, subject, setSubject }) {
 }
 
 export default CreateStep2;
+// import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+// import { db } from "../firebase"; // Firebase firestore'ni import qilish
+
+// // Test yechilgan ma'lumotlarni saqlash funksiyasi
+// const saveSolvedTest = async (userId, testId, correctAnswers, totalQuestions) => {
+//   try {
+//     // Foydalanuvchi va test uchun yangi hujjat yaratiladi
+//     const solvedTestRef = doc(db, "solvedTests", `${userId}_${testId}`);
+    
+//     // Hujjat ichiga quyidagi ma'lumotlarni saqlaymiz
+//     await setDoc(solvedTestRef, {
+//       userId: userId,            // Foydalanuvchi ID
+//       testId: testId,            // Test ID
+//       correctAnswers: correctAnswers,  // To'g'ri javoblar soni
+//       totalQuestions: totalQuestions,  // Testdagi jami savollar soni
+//       solvedAt: serverTimestamp() // Hozirgi vaqtni saqlash
+//     });
+
+//     console.log("Test ma'lumotlari saqlandi!");
+//   } catch (error) {
+//     console.error("Xatolik ma'lumotlarni saqlashda:", error);
+//   }
+// };
+
+// // Misol uchun test yechilgan vaqtda:
+// const handleTestCompletion = async () => {
+//   const userId = currentUser.uid;       // Hozirgi foydalanuvchi ID'sini oling
+//   const testId = "some_test_id";        // Test ID (har bir test uchun unik kod)
+//   const correctAnswers = 8;             // To'g'ri javoblar soni (bu ma'lumotni testdan olasiz)
+//   const totalQuestions = 10;            // Jami savollar soni
+
+//   // Foydalanuvchi testni yechganligini Firebase'ga saqlash
+//   await saveSolvedTest(userId, testId, correctAnswers, totalQuestions);
+// };

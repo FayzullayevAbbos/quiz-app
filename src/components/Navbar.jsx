@@ -10,12 +10,13 @@ const Navbar = () => {
   const navigate = useNavigate()
 // console.log(auth);
 useEffect(() => {
+  
   if (location.pathname === '/login' || location.pathname === '/register') {
     console.log(location.pathname);
     
     handleLogout();
   }
-}, [location.pathname]);
+}, [location.pathname , currentUser?.displayName]);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {

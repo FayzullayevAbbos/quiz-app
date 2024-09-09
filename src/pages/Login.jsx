@@ -6,27 +6,53 @@ import { GoogleOutlined } from "@ant-design/icons";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
+
+
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(
+      // Email va password orqali tizimga kirish
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         values.email,
-        values.password,
+        values.password
       );
-      message.info("Login successful!");
-      navigate('/')
+      
+      const user = userCredential.user;
+
+      // Firestore'dan foydalanuvchining ro'lini olish
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        console.log("Foydalanuvchi ma'lumotlari:", userData);
+        
+
+        if (userData.role) {
+          message.info("Login successful!");
+          navigate('/'); // Ro'l bor bo'lsa bosh sahifaga o'tish
+        } else {
+          message.warning("Ro'l ma'lumotlari mavjud emas!");
+          navigate('/role-selection'); // Ro'l mavjud bo'lmasa, ro'l tanlash sahifasiga o'tish
+        }
+      } else {
+        message.error("Foydalanuvchi ma'lumotlari topilmadi.");
+      }
     } catch (error) {
       console.error("Login failed", error);
+      message.error("Login failed! Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
 
 
   const handleGoogleLogin = async () => {

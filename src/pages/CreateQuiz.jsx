@@ -11,21 +11,24 @@ function CreateQuiz() {
  
 
   return (
-    <div className='h-full w-full flex items-center justify-center'>
+    <>
+    
       <Navbar/>
+    <div className='h-full w-full flex items-center justify-center'>
       {question ? (
         <CreateStep2
-          setSubject={setSubject}
-          subject={subject}
-          setQuestion={setQuestion}
+        setSubject={setSubject}
+        subject={subject}
+        setQuestion={setQuestion}
         />
       ) : (
         <CreateStep1
-          setSubject={setSubject}
-          setQuestion={setQuestion}
+        setSubject={setSubject}
+        setQuestion={setQuestion}
         />
       )}
     </div>
+      </>
   );
 }
 

@@ -1,32 +1,40 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore"; // Import additional methods
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { Button, Form, Radio, Space, Spin } from "antd";
+import { Button, Form, message, Radio, Space, Spin } from "antd";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function StartStep2({ formLoading, setFormLoading, selectedFan }) {
   const [variantSoni, setVariantSoni] = useState(0);
   const [questionsArray, setQuestionsArray] = useState([]);
   const [next, setNext] = useState(0);
   const [value, setValue] = useState(0);
-  const [results, setResults] = useState([]); // Track results for all questions
+  const [results, setResults] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [finish, setFinish] = useState(false);
+  const { currentUser } = useAuth();
   useEffect(() => {
     getVariantSoni();
     getQuestions();
   }, []);
-  useEffect(() => {
-    console.log(next  == questionsArray.length);
-    
-    if (next  == questionsArray.length) {
-      setFinish(true);
-      
+  console.log(selectedFan);
 
-    }else setFinish(false)
-    console.log(next + " " + questionsArray.length);
-  }, [next , questionsArray.length]);
-  console.log(finish);
+  useEffect(() => {
+    if (next === questionsArray.length) {
+      setFinish(true);
+      handleFinish(); // Call handleFinish when the test is complete
+    } else {
+      setFinish(false);
+    }
+  }, [next, questionsArray.length]);
 
   const getVariantSoni = async () => {
     try {
@@ -51,13 +59,11 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
         matematikaDocRef,
         "questions",
       );
-
       let questionsArray = [];
       const querySnapshot = await getDocs(questionsCollectionRef);
       querySnapshot.forEach((doc) => {
         questionsArray.push({ id: doc.id, ...doc.data() });
       });
-
       setQuestionsArray(questionsArray);
       setFormLoading(false);
     } catch (error) {
@@ -67,33 +73,53 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
 
   const onChange = (e) => {
     setValue(e.target.value);
-    setIsSubmitted(false); // Reset submission state when changing selection
+    setIsSubmitted(false);
   };
 
   const handleSubmit = () => {
     if (value !== null) {
       const correctAnswer = questionsArray[next]?.togriVariant;
       const isCorrect = value === correctAnswer;
-
-      // Add the result to the results array
       setResults((prevResults) => [
         ...prevResults,
         { questionIndex: next, isCorrect },
       ]);
-
       setIsSubmitted(true);
-
-      // Move to the next question after a delay
       setTimeout(() => {
         setNext((prevNext) => prevNext + 1);
         setValue(0);
         setIsSubmitted(false);
-      }, 500); // Adjust delay as needed
+      }, 500);
     }
   };
-  // Reset the selected value for the next question
-  console.log(questionsArray.length + " arr");
-  console.log(next + " next");
+
+  // Function to handle saving results to Firebase
+  const handleFinish = async () => {
+    try {
+      if (currentUser) {
+        // Ensure currentUser is available
+        const userDocRef = doc(db, "solvedTests", currentUser.uid);
+        await setDoc(
+          userDocRef,
+          {
+            userName: currentUser.displayName,
+            fanName: selectedFan,
+            totalQuestions: questionsArray.length,
+            correctAnswers: results.filter((r) => r.isCorrect).length,
+            incorrectAnswers: results.filter((r) => !r.isCorrect)
+              .length,
+            solvedAt: Timestamp.now(), // Save the current timestamp
+          },
+          { merge: true },
+        );
+      }
+      questionsArray.length
+        ? message.info("Natijangiz saqlandi")
+        : "";
+    } catch (error) {
+      console.error("Error saving test results:", error);
+    }
+  };
 
   return (
     <>
@@ -111,7 +137,6 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
             ) : (
               <>
                 <h2 className='text-[30px]'>Quiz boshlandi!!!</h2>
-
                 <div className='w-full font-bold px-10 text-[23px] pt-10'>
                   {next + 1}) Savol: {questionsArray[next]?.savol}
                 </div>
@@ -150,7 +175,6 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
                       </Space>
                     </Radio.Group>
                   </Form.Item>
-
                   <Form.Item className='flex gap-3'>
                     <Button
                       className='mr-3'
@@ -169,8 +193,6 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
           </div>
         )}
         <hr className='w-full' />
-
-        {/* Results Section */}
         <div className='max-w-[1220px] w-full'>
           <div className='flex gap-10 py-4 text-lg'>
             <div>
@@ -186,8 +208,6 @@ function StartStep2({ formLoading, setFormLoading, selectedFan }) {
               </span>
             </div>
           </div>
-
-          {/* Question Number Indicators */}
           <div className='flex gap-3'>
             {questionsArray?.map((qu, index) => (
               <div

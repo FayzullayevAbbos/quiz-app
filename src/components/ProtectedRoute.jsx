@@ -1,39 +1,25 @@
-// import { useAuth } from "../context/AuthContext";
-// import { Navigate } from "react-router-dom";
-
-// const ProtectedRoute = ({ children }) => {
-//   const { currentUser  } = useAuth();
-
-//   if (!currentUser) {
-//     // If the user is not authenticated, redirect to the login page
-//     return <Navigate to="/login" />;
-//   }
-
-//   // If the user is authenticated, render the children components
-//   return children;
-// };
-
-// export default ProtectedRoute;
 
 
-import  { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { useContext, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-const ProtectedRoute = ({ children, allowedRoles }) => {
+const ProtectedRoute = ({ children, requiredRole }) => {
   const { currentUser, userRole } = useContext(AuthContext);
 
+  console.log(currentUser);
+  console.log(userRole);
+  
   if (!currentUser) {
-    // Agar foydalanuvchi autentifikatsiya qilinmagan bo'lsa, login sahifasiga yo'naltiradi
-    return <Navigate to="/login" />;
+    return <Navigate to='/login' />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(userRole)) {
-    // Agar foydalanuvchi kerakli ro'lga ega bo'lmasa, ruxsat etilmagan sahifaga yo'naltiradi
-    return <Navigate to="/" />;
+  if (requiredRole && userRole !== requiredRole) {
+    return <Navigate to='/unauthorized' />;
   }
+ 
+  
 
-  // Agar foydalanuvchi autentifikatsiya qilingan va ro'l ruxsat etilgan bo'lsa, children komponentlarini render qiladi
   return children;
 };
 

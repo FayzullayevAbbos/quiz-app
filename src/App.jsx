@@ -13,12 +13,16 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RoleSelection from "./components/RoleSelection";
+import Unauthorized from "./pages/Unauthorized";
+import TeacherDashboard from "./pages/TeacherDashboard";
 
 function App() {
   const router = createBrowserRouter([
     {
       element: (
-        <ProtectedRoute> {/* Wrapping Home in ProtectedRoute */}
+        <ProtectedRoute>
+          {" "}
+          {/* Wrapping Home in ProtectedRoute */}
           <Home />
         </ProtectedRoute>
       ),
@@ -26,7 +30,9 @@ function App() {
     },
     {
       element: (
-        <ProtectedRoute> {/* Wrapping StartQuiz in ProtectedRoute */}
+        <ProtectedRoute requiredRole='student'>
+          {" "}
+          {/* Wrapping StartQuiz in ProtectedRoute */}
           <StartQuiz />
         </ProtectedRoute>
       ),
@@ -34,11 +40,21 @@ function App() {
     },
     {
       element: (
-        <ProtectedRoute> {/* Wrapping CreateQuiz in ProtectedRoute */}
+        <ProtectedRoute requiredRole='teacher'>
+          {" "}
+          {/* Wrapping CreateQuiz in ProtectedRoute */}
           <CreateQuiz />
         </ProtectedRoute>
       ),
       path: "/create",
+    },
+    {
+      element: (
+        <ProtectedRoute requiredRole='teacher'>
+          <TeacherDashboard />
+        </ProtectedRoute>
+      ),
+      path: "/teacher-dashboard",
     },
     {
       element: <Login />,
@@ -49,14 +65,17 @@ function App() {
       path: "/register",
     },
     {
-      element:<RoleSelection/>,
-      path:'/role-selection'
-    }
+      element: <RoleSelection />,
+      path: "/role-selection",
+    },
+    {
+      path: "/unauthorized",
+      element: <Unauthorized />,
+    },
   ]);
 
   return (
     <AuthProvider>
-      
       <RouterProvider router={router} />
     </AuthProvider>
   );

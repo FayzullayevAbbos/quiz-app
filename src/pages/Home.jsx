@@ -16,7 +16,7 @@ function Home() {
           <h1 className='text-[70px] font-medium'>
             Welcome to my Quiz-App
           </h1>
-          <div className='flex gap-10'>
+          <div className='flex flex-col items-center gap-10'>
             <Link to={"/start"}>
               <Button
                 className='text-[30px] px-5 py-8 font-bold'
@@ -30,7 +30,15 @@ function Home() {
                 className='text-[30px] px-5 py-8 font-bold'
                 type='primary'
               >
-                Create quiz
+                Create  quiz
+              </Button>
+            </Link>
+            <Link to={"/teacher-dashboard"}>
+              <Button
+                className='text-[30px] px-5 py-8 font-bold'
+                type='primary'
+              >
+                For Teachers
               </Button>
             </Link>
           </div>

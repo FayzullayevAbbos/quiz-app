@@ -71,20 +71,22 @@ function Login() {
           { merge: true },
         );
 
-        setLoading(false);
-
+        
         navigate("/role-selection");
+       
       } else {
         const userData = userDoc.data();
         if (userData.role) {
-          setLoading(false);
           navigate("/");
+         
         } else {
-          setLoading(false);
+          
 
           navigate("/role-selection");
         }
       }
+      setLoading(false);
+
     } catch (error) {
       console.error("Xatolik ro'y berdi:", error);
     }

@@ -5,11 +5,16 @@ import { auth } from "../firebase";
 import { useEffect } from "react";
 
 const Navbar = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, setChangePath ,userRole } = useAuth();
   const location = useLocation()
   const navigate = useNavigate()
  
-
+  console.log(currentUser);
+  useEffect(()=> {
+    setChangePath(location.pathname)
+    console.log(userRole);
+    
+  },[location.pathname])
   const handleLogout = () => {
     signOut(auth)
       .then(() => {

@@ -84,13 +84,13 @@ function Login() {
           { merge: true },
         );
 
+        startLoading()
         navigate("/role-selection");
       } else {
         const userData = userDoc.data();
         if (userData.role) {
           navigate("/");
         } else {
-          startLoading()
           navigate("/role-selection");
         }
       }

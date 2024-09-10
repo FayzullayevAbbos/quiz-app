@@ -14,14 +14,21 @@ import { useAuth } from "../context/AuthContext";
 function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {userRole} = useAuth()
+  const { userRole } = useAuth();
+  console.log(userRole);
 
-  useEffect(()=> {
-  
-    if (userRole) {
-      setLoading(false)
-    }
-  }, [userRole])
+  const startLoading = () => {
+    setLoading(true); 
+    console.log(1);
+    // Loadingni true qilamiz
+    setTimeout(() => {
+      console.log(3);
+      
+      setLoading(false); // 3 soniyadan keyin loading false bo'ladi
+    }, 3000); 
+  };
+
+
   const onFinish = async (values) => {
     setLoading(true);
     try {
@@ -38,7 +45,6 @@ function Login() {
 
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
-     
 
         if (userData.role) {
           message.info("Login successful!");
@@ -54,10 +60,9 @@ function Login() {
       console.error("Login failed", error);
       message.error("Login failed! Please try again.");
     } finally {
-      
+
     }
   };
-
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -79,22 +84,16 @@ function Login() {
           { merge: true },
         );
 
-        
         navigate("/role-selection");
-       
       } else {
         const userData = userDoc.data();
         if (userData.role) {
           navigate("/");
-         
         } else {
-          
-
+          startLoading()
           navigate("/role-selection");
         }
       }
-      
-
     } catch (error) {
       console.error("Xatolik ro'y berdi:", error);
     }

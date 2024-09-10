@@ -5,10 +5,11 @@ import { auth } from "../firebase";
 import { useEffect } from "react";
 
 const Navbar = () => {
-  const { currentUser, setChangePath ,userRole } = useAuth();
+  const { currentUser, setChangePath , userRole } = useAuth();
   const location = useLocation()
   const navigate = useNavigate()
- 
+
+  
  
   useEffect(()=> {
     setChangePath(location.pathname)

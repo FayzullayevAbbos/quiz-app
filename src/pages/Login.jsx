@@ -4,7 +4,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db, googleProvider } from "../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleOutlined } from "@ant-design/icons";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,14 @@ import { useAuth } from "../context/AuthContext";
 function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {userRole} = useAuth()
 
+  useEffect(()=> {
+  
+    if (userRole) {
+      setLoading(false)
+    }
+  }, [userRole])
   const onFinish = async (values) => {
     setLoading(true);
     try {
@@ -47,9 +54,10 @@ function Login() {
       console.error("Login failed", error);
       message.error("Login failed! Please try again.");
     } finally {
-      setLoading(false);
+      
     }
   };
+
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -85,7 +93,7 @@ function Login() {
           navigate("/role-selection");
         }
       }
-      setLoading(false);
+      
 
     } catch (error) {
       console.error("Xatolik ro'y berdi:", error);

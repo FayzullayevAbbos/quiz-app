@@ -27,39 +27,24 @@ const TeacherDashboard = () => {
   };
 
   function formatTime(dateString) {
-    // const date = new Date(dateString);
-
-    // let hours = date.getHours();
-    // const minutes = Math.floor((dateString.seconds % 3600) / 60);
-
-    // const amPm = hours >= 12 ? "PM" : "AM";
-
-    // hours = hours % 12 || 12;
-    // console.log(dateString);
-
-    // const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    // return `${hours}:${formattedMinutes} ${amPm}`;
+    
 
     const years = Math.floor(dateString / (3600 * 24 * 365));
     let remainingSeconds = dateString % (3600 * 24 * 365);
 
-    // Oylikni hisoblash (oylar 30 kunga teng deb olingan)
     const months = Math.floor(remainingSeconds / (3600 * 24 * 30));
     remainingSeconds = remainingSeconds % (3600 * 24 * 30);
 
-    // Kunlarni hisoblash
     const days = Math.floor(remainingSeconds / (3600 * 24));
     remainingSeconds = remainingSeconds % (3600 * 24);
 
-    // Soatlarni hisoblash
     const hours = Math.floor(remainingSeconds / 3600);
     remainingSeconds = remainingSeconds % 3600;
     const amPm = hours + 5 >= 12 ? "PM" : "AM";
-    // Minutlarni hisoblash
+
     const minutes = Math.floor(remainingSeconds / 60);
  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    // Qoldiq sekundlar
+
     const remainingSecondsFinal = remainingSeconds % 60;
      return `${hours + 5}:${formattedMinutes} ${amPm}`;
   }

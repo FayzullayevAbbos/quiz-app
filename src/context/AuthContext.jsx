@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [userRole, setUserRole] = useState(null);
   const [changePath , setChangePath] = useState('')
   const [loading, setLoading] = useState(true);
-  console.log(userRole);
+  
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

@@ -9,10 +9,10 @@ const Navbar = () => {
   const location = useLocation()
   const navigate = useNavigate()
  
-  console.log(currentUser);
+ 
   useEffect(()=> {
     setChangePath(location.pathname)
-    console.log(userRole);
+
     
   },[location.pathname])
   const handleLogout = () => {

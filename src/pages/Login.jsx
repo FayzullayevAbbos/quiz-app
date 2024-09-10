@@ -91,6 +91,7 @@ function Login() {
         if (userData.role) {
           navigate("/");
         } else {
+          startLoading()
           navigate("/role-selection");
         }
       }
